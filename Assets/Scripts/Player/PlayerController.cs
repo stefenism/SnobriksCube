@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private BoxCollider2D boxCollider;
 
+    private PlayerStateManager playerState;
+    private PlayerHealth playerHealth;
+
     public bool grounded;
     private bool facingRight;
 
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private float jumpDuration = 0;
     public float jumpTime = .3f;
+    [Range(0.1f, 1f)]
     public float drag = 1;
     public float gravityDropModifier = 2;
     private float maxFallSpeed = -10f;
@@ -30,10 +34,15 @@ public class PlayerController : MonoBehaviour
     private float horMov;
     public float speed;
     public float maxSpeed;
+    [Range(0.1f, 1f)]
     public float accelerationFactor;
+    [Range(0.1f, 1f)]
     public float aircellerationFactor;
+    [Range(0.1f, 1f)]
     public float decel;
+    [Range(0.1f, 1f)]
     public float airDecel;
+    [Range(0.1f, 1f)]
     public float autoBrakeFactor;
 
     void Awake()
@@ -41,11 +50,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+
+        playerState = GetComponent<PlayerStateManager>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        CheckInput();
+        if(playerState.playerIsControllable())
+            CheckInput();
     }
 
     void FixedUpdate()
@@ -224,6 +237,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D GetRigidbody(){return rb;}
 
     public void setGravityScale(float newScale){rb.gravityScale = newScale;}
+
+    public PlayerStateManager GetPlayerState(){return playerState;}
+    public PlayerHealth GetPlayerHealth(){return playerHealth;}
 
     void Flip()
     {
