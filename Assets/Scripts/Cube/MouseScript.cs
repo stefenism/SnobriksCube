@@ -42,7 +42,7 @@ public class MouseScript : MonoBehaviour
         if(holdingSelector){
             totalMouseX+=Input.mousePosition.x-lastMouseX;
             totalMouseY+=Input.mousePosition.y-lastMouseY;
-            if(abs(totalMouseX)>20){
+            if(Mathf.Abs(totalMouseX)>20){
                 print("Mouse Big");
             }
         }
