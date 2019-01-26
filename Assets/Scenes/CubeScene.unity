@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 93672795}
   - component: {fileID: 93672794}
   m_Layer: 0
-  m_Name: CubeSideLeftUp
+  m_Name: CubeSideLeftVert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 396820133}
   - component: {fileID: 396820132}
   - component: {fileID: 396820131}
+  - component: {fileID: 396820135}
   m_Layer: 0
   m_Name: SelectorTopLeft
   m_TagString: Selector
@@ -727,6 +728,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &396820135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396820130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ba261f4aa0d4742b684be8e0e731f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeSideVert: {fileID: 93672793}
+  cubeSideHor: {fileID: 0}
 --- !u!1 &643174758
 GameObject:
   m_ObjectHideFlags: 0
