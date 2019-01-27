@@ -48,15 +48,12 @@ public class BlockCollisionManager : MonoBehaviour
         foreach(Block b in blockList)
         {
             List<BlockRoom> rooms = b.GetRooms();
-            Debug.Log("B is: " + b.name);
             if(blocks.Contains(b))
             {
-                Debug.Log("B is in front!");
                 foreach(BlockRoom r in rooms)
                 {
                     r.gameObject.layer = LayerMask.NameToLayer(defaultCollisionLayerName); 
                     r.tiles.gameObject.layer = LayerMask.NameToLayer(playerCollisionLayerName);
-                    Debug.Log("setting layer for: " + b.name + " room: " + r.name + " to: " + LayerMask.NameToLayer(playerCollisionLayerName));
                 }
             }
                 
@@ -71,16 +68,19 @@ public class BlockCollisionManager : MonoBehaviour
             }
                 //LayerMask.LayerToName(defaultCollisionLayer.value);
         }
-        
-        Debug.Log("default collision layer name: " + LayerMask.NameToLayer(defaultCollisionLayerName));
-        Debug.Log("player collision layer name: " + LayerMask.NameToLayer(playerCollisionLayerName));
     }
 
     public Block getBlockWithRoom(BlockRoom room)
     {
         foreach(Block b in blockList)
         {
-            if(b.GetRooms().Contains(room));
+            List<BlockRoom> rooms = b.GetRooms();
+            
+            foreach(BlockRoom r in rooms)
+                Debug.Log("getrooms: " + r.name);
+            Debug.Log("Current block: " + b.name);
+            Debug.Log("current player room: " + room.name);
+            if(rooms.Contains(room));
                 return b;
         }
         return null;

@@ -17,7 +17,7 @@ public class Block : MonoBehaviour
 
     void Awake()
     {
-        BlockRoom[] blockRooms = GetComponentsInChildren<BlockRoom>();
+        BlockRoom[] blockRooms = this.GetComponentsInChildren<BlockRoom>();
         foreach(BlockRoom r in blockRooms)
             rooms.Add(r);
     }
