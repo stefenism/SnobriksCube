@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 9087110507748529948, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
       propertyPath: m_Name
-      value: FallRoom
+      value: FallRoom Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9087110505784839258, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
@@ -67,17 +67,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9087110506747936092, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 7738450840769851850}
     - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ddbf24ad1ca8f8546982b0c838b67ad4,
         type: 3}
-    - target: {fileID: 9087110506747936092, guid: 40344ea79839f184a80ad4e7cc60cae2,
+    - target: {fileID: 9087110506747936091, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_Collider
-      value: 
-      objectReference: {fileID: 7738450840769851850}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087110506747936091, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40344ea79839f184a80ad4e7cc60cae2, type: 3}
 --- !u!19719996 &7738450840769851850 stripped
