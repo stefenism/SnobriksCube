@@ -78,6 +78,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: fdf9f0a9798d912428db5b418b01c754,
         type: 3}
+    - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9087110506747936091, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
       propertyPath: m_Simulated

@@ -72,12 +72,32 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_Collider
       value: 
       objectReference: {fileID: 3135924676217285066}
+    - target: {fileID: 9087110507748529947, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.31250003
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087110507748529947, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.31250003
+      objectReference: {fileID: 0}
     - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 644b693fb3d0c824a83b7d4d55560b47,
         type: 3}
+    - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.31250003
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978235598548995999, guid: 40344ea79839f184a80ad4e7cc60cae2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.31250003
+      objectReference: {fileID: 0}
     - target: {fileID: 9087110506747936091, guid: 40344ea79839f184a80ad4e7cc60cae2,
         type: 3}
       propertyPath: m_Simulated

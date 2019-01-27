@@ -10,8 +10,8 @@ public class GroundDetect : MonoBehaviour {
 	public float width;
 	public float height;
 
-	private Vector2 ray2;
-	private Vector2 ray3;
+	private Vector3 ray2;
+	private Vector3 ray3;
 
 
 	// Use this for initialization
@@ -36,8 +36,8 @@ public class GroundDetect : MonoBehaviour {
 	void GroundDetection()
 	{
 
-		ray2 = new Vector2(transform.position.x + width, transform.position.y);
-		ray3 = new Vector2(transform.position.x - width, transform.position.y);
+		ray2 = new Vector3(transform.position.x + width, transform.position.y, transform.position.z);
+		ray3 = new Vector3(transform.position.x - width, transform.position.y, transform.position.z);
 
 
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, groundDistance, groundLayer);
