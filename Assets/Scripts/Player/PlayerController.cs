@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     {
         if(playerState.playerIsControllable())
             CheckInput();
+
+        anim.SetBool("Dead", playerState.playerIsDead());
     }
 
     void FixedUpdate()

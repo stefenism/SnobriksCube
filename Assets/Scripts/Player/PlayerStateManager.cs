@@ -26,6 +26,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void setPlayerFrozen(){playerState = PlayerState.FROZEN;}
     public void setPlayerControllable(){playerState = PlayerState.CONTROLLABLE;}
+    public void setPlayerDead(){playerState = PlayerState.DEAD;}
 
     public void setCurrentRoom(BlockRoom newRoom){currentRoom = newRoom;}
     public BlockRoom getCurrentRoom(){return currentRoom;}
