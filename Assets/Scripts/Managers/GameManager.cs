@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameDaddy = null;
 
     public PlayerController player;
+    public BlockCollisionManager blockCollision;
 
     Transform currentPlayerSpawn;
 
@@ -23,6 +24,9 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad (gameObject);
+
+        if(blockCollision != null)
+            blockCollision.Initialize();
 
     }
 

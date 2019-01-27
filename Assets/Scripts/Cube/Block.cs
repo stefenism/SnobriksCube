@@ -30,4 +30,6 @@ public class Block : MonoBehaviour
                 r.gameObject.transform.GetChild(i).gameObject.layer = physicsLayer;
             }
     }
+
+    public List<BlockRoom> GetRooms(){return rooms;}
 }

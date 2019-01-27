@@ -21,11 +21,14 @@ public class FrontFacedBlocks : MonoBehaviour
         List<Block> frontFacingBlocks = new List<Block>();
         Collider[] hitColliders = Physics.OverlapBox(transform.position, extents);
         foreach(Collider c in hitColliders)
-            if(c.gameObject.GetComponent<Block>() != null)
-                frontFacingBlocks.Add(c.gameObject.GetComponent<Block>());
-            
-        foreach(Block b in frontFacingBlocks)
-            Debug.Log("b name: " + b.name);    
-        return null;
+        {
+            Block block = c.GetComponent<Block>();
+            if(block != null)
+                frontFacingBlocks.Add(block);
+        }
+        
+        //foreach(Block b in frontFacingBlocks)
+        //    Debug.Log("b name: " + b.name);    
+        return frontFacingBlocks;
     }
 }

@@ -26,4 +26,10 @@ public class PlayerStateManager : MonoBehaviour
 
     public void setCurrentRoom(BlockRoom newRoom){currentRoom = newRoom;}
     public BlockRoom getCurrentRoom(){return currentRoom;}
+
+    public Block getCurrentBlock()
+    {
+        Block currentBlock = GameManager.gameDaddy.blockCollision.getBlockWithRoom(currentRoom);
+        return currentBlock;
+    }
 }

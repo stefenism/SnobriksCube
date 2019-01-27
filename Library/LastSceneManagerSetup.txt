@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/StefenCube.unity
+- path: Assets/Scenes/StefenCubeNumberTheSecond.unity
   isLoaded: 1
   isActive: 1
