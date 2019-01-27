@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     }
     public void dead()
     {
+        player.GetPlayerState().setPlayerFrozen();
         StartCoroutine("playerDead");
     }
 
@@ -49,5 +51,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("player is dead");
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
     }
 }
