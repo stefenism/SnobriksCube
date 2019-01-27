@@ -11,7 +11,14 @@ public class PlayerStateManager : MonoBehaviour
         DEAD,
     }
 
+    private enum PlayerCubeStatus
+    {
+        HASCUBE,
+        NOCUBE,
+    }
+
     private PlayerState playerState = PlayerState.CONTROLLABLE;
+    private PlayerCubeStatus cubeStatus = PlayerCubeStatus.NOCUBE;
     private BlockRoom currentRoom;
     private Vector2 spawnPosition;
 
@@ -44,6 +51,9 @@ public class PlayerStateManager : MonoBehaviour
         playerState = PlayerState.DEAD;
         
     }
+
+    public void setPlayerHasCube(){cubeStatus = PlayerCubeStatus.HASCUBE;}
+    public bool playerHasCube(){return cubeStatus == PlayerCubeStatus.HASCUBE;}
 
     public void setCurrentRoom(BlockRoom newRoom){currentRoom = newRoom;}
     public BlockRoom getCurrentRoom(){return currentRoom;}
