@@ -23,7 +23,11 @@ public class PlayerHealth : MonoBehaviour
             player.GetPlayerState().setPlayerDead();
     }
 
-    public void addHealth(float addToHealth){currentHealth += addToHealth;}
+    public void addHealth(float addToHealth)
+    {
+        currentHealth += addToHealth;
+        Mathf.Clamp(currentHealth, 0, 100);    
+    }
 
     public float getCurrentHealth(){return currentHealth;}
 }

@@ -49,6 +49,7 @@ public class PlayerStateManager : MonoBehaviour
         if(!playerIsDead())
             player.GetSound().playMelting();
         playerState = PlayerState.DEAD;
+        GameManager.gameDaddy.endGame();
         
     }
 
