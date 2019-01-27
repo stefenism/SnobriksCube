@@ -7,7 +7,7 @@ public class PlayerStateManager : MonoBehaviour
     private enum PlayerState
     {
         CONTROLLABLE,
-        ALIVE,
+        FROZEN,
         DEAD,
     }
 
@@ -21,8 +21,11 @@ public class PlayerStateManager : MonoBehaviour
     } 
 
     public bool playerIsControllable(){return playerState == PlayerState.CONTROLLABLE;}
-    public bool playerIsAlive(){return playerState == PlayerState.ALIVE;}
+    public bool playerIsFrozen(){return playerState == PlayerState.FROZEN;}
     public bool playerIsDead(){return playerState == PlayerState.DEAD;}
+
+    public void setPlayerFrozen(){playerState = PlayerState.FROZEN;}
+    public void setPlayerControllable(){playerState = PlayerState.CONTROLLABLE;}
 
     public void setCurrentRoom(BlockRoom newRoom){currentRoom = newRoom;}
     public BlockRoom getCurrentRoom(){return currentRoom;}

@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
         foreach(BlockRoom r in rooms)
             for(int i = 0; i < r.gameObject.transform.childCount; i++)
             {
-                r.gameObject.transform.GetChild(i).gameObject.layer = physicsLayer;
+                r.gameObject.transform.GetChild(i).gameObject.layer = physicsLayer.value;
             }
     }
 

@@ -6,6 +6,7 @@ public class FrontFacedBlocks : MonoBehaviour
 {
     public BoxCollider collider;
     private Vector3 extents = new Vector3(3,3,.5f);
+    List<Block> frontFacingBlocks = new List<Block>();
 
 
     void Update()
@@ -18,12 +19,12 @@ public class FrontFacedBlocks : MonoBehaviour
     }
     public List<Block> findFrontFaceBlocks()
     {
-        List<Block> frontFacingBlocks = new List<Block>();
+        
         Collider[] hitColliders = Physics.OverlapBox(transform.position, extents);
         foreach(Collider c in hitColliders)
         {
             Block block = c.GetComponent<Block>();
-            if(block != null)
+            if(block != null && !frontFacingBlocks.Contains(block))
                 frontFacingBlocks.Add(block);
         }
         

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class BlockRoom : MonoBehaviour
@@ -25,7 +26,14 @@ public class BlockRoom : MonoBehaviour
 
     public Sprite backGroundImage;
 
-    public void Update()
+    public Tilemap tiles;
+
+    void Awake()
+    {
+        tiles = GetComponentInChildren<Tilemap>();
+    }
+
+    void Update()
     {
         affect_player_health();
     }
