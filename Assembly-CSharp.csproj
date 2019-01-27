@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Cube\CubeScript.cs" />
      <Compile Include="Assets\Scripts\Cube\MouseScript.cs" />
      <Compile Include="Assets\Scripts\Cube\SelectorScript.cs" />
+     <Compile Include="Assets\Scripts\Managers\BlockCollisionManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\FrontFacedBlocks.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\GroundDetect.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />

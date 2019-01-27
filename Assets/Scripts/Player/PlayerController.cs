@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerHealth playerHealth;
 
     public bool grounded;
-    private bool facingRight;
+    private bool facingRight = true;
 
     private bool jumping = false;
     private bool jumpAllowed = true;
@@ -95,6 +95,10 @@ public class PlayerController : MonoBehaviour
             Flip();
         else if(rb.velocity.x < 0 && facingRight)
             Flip();
+
+        anim.SetFloat("Speed", Mathf.Abs(horMov));
+        anim.SetFloat("Vspeed", rb.velocity.y);
+        anim.SetBool("Grounded" , grounded);
     }
 
     void Run(float horMov)
