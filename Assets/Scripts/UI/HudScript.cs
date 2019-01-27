@@ -6,6 +6,18 @@ public class HudScript : MonoBehaviour
 {
     public GameObject logo;
     public GameObject healthBarUI;
+    public GameObject key1;
+    public GameObject key2;
+    public GameObject key3;
+    GameObject currentKey;
+    public Sprite testSprite;
+    int keyCount = 0;
+
+    bool shiftVisable=true;
+    float shiftAlpha = 0;
+    public GameObject shiftUI;
+    public CameraController camera;
+
     public float healthTotal = 0;
     float fade = 700;
     // Start is called before the first frame update
@@ -19,6 +31,7 @@ public class HudScript : MonoBehaviour
     {
         LogoFade();
         UpdateHealthBar();
+        UpdateShift();
     }
 
     void LogoFade()
@@ -36,6 +49,53 @@ public class HudScript : MonoBehaviour
 
         healthBarUI.transform.localScale = new Vector3(1, 1 + healthTotal * 3.6f, 1);
 
+
+    }
+    public void AddKey(Sprite sprt)
+    {
+        switch (keyCount)
+        {
+            case 0:
+                currentKey = key1;
+                break;
+            case 1:
+                currentKey = key2;
+                break;
+            case 2:
+                currentKey = key3;
+                break;
+            default:
+                print("error to many keys");
+                return;
+        }
+        keyCount++;
+        currentKey.GetComponent<Image>().enabled = true;
+        currentKey.GetComponent<Image>().sprite = sprt;
+
+    }
+    public void ShowShift()
+    {
+        shiftVisable = true;
+    }
+
+    void UpdateShift()
+    {
+        print(shiftAlpha);
+        if (shiftAlpha < 255 & shiftAlpha >= 0)
+        {
+            shiftUI.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)shiftAlpha);
+
+        }
+        if (shiftVisable)
+        {
+            if(shiftAlpha<255)
+            shiftAlpha = shiftAlpha + 1.5f;
+        }else{
+            if(shiftAlpha>0)
+            shiftAlpha = shiftAlpha - 1.5f;
+        }
+        if(camera.zoomOut)
+            shiftVisable=false;
 
     }
 }

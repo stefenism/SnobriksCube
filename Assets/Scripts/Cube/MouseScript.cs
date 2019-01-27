@@ -36,7 +36,16 @@ public class MouseScript : MonoBehaviour
     float lastMouseY = 0;
     float totalMouseX = 0;
     float totalMouseY = 0;
+    public bool forceShuffle = true;
+
+
     void Update()
+    {
+
+        RotateCubesMouse();
+
+    }
+    void RotateCubesMouse()
     {
         if (!rotating)//dont allow clicks if rotating
         {
@@ -164,6 +173,8 @@ public class MouseScript : MonoBehaviour
                         }
                     }
                 }
+            }else{
+                ClearPlanes();
             }
         }
         else
@@ -304,6 +315,8 @@ public class MouseScript : MonoBehaviour
         }
         return false;
     }
+
+
 
 
 }
