@@ -9,7 +9,8 @@ public class BlockCollisionManager : MonoBehaviour
     public LayerMask defaultCollisionLayer;
 
     private string playerCollisionLayerName = "Ground";
-    private string defaultCollisionLayerName = "BackGround";
+    private string defaultCollisionLayerName = "Default";
+    private string backGroundCollisionLayerName = "BackGround";
 
     private FrontFacedBlocks frontFaced;
     void Awake()
@@ -46,24 +47,26 @@ public class BlockCollisionManager : MonoBehaviour
         List<Block> blocks = frontFaced.findFrontFaceBlocks();
         foreach(Block b in blockList)
         {
+            List<BlockRoom> rooms = b.GetRooms();
+            Debug.Log("B is: " + b.name);
             if(blocks.Contains(b))
             {
-                List<BlockRoom> rooms = b.GetRooms();
+                Debug.Log("B is in front!");
                 foreach(BlockRoom r in rooms)
                 {
-                    r.gameObject.layer = LayerMask.NameToLayer(playerCollisionLayerName); 
+                    r.gameObject.layer = LayerMask.NameToLayer(defaultCollisionLayerName); 
                     r.tiles.gameObject.layer = LayerMask.NameToLayer(playerCollisionLayerName);
+                    Debug.Log("setting layer for: " + b.name + " room: " + r.name + " to: " + LayerMask.NameToLayer(playerCollisionLayerName));
                 }
             }
                 
                 // LayerMask.NameToLayer(playerCollisionLayer.getMask());
             else
             {
-                List<BlockRoom> rooms = b.GetRooms();
                 foreach(BlockRoom r in rooms)
                 {
-                    r.gameObject.layer = LayerMask.NameToLayer(defaultCollisionLayerName); 
-                    r.tiles.gameObject.layer = LayerMask.NameToLayer(defaultCollisionLayerName);
+                    r.gameObject.layer = LayerMask.NameToLayer(backGroundCollisionLayerName); 
+                    r.tiles.gameObject.layer = LayerMask.NameToLayer(backGroundCollisionLayerName);
                 }
             }
                 //LayerMask.LayerToName(defaultCollisionLayer.value);
