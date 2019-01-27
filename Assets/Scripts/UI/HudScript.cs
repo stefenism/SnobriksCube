@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class HudScript : MonoBehaviour
 {
     public GameObject logo;
+    public GameObject healthBarUI;
+    public float healthTotal = 0;
     float fade = 700;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class HudScript : MonoBehaviour
     void Update()
     {
         LogoFade();
+        UpdateHealthBar();
     }
 
     void LogoFade()
@@ -26,5 +29,13 @@ public class HudScript : MonoBehaviour
 
         }
         fade = fade - 1.5f;
+    }
+
+    void UpdateHealthBar()
+    {
+
+        healthBarUI.transform.localScale = new Vector3(1, 1 + healthTotal * 3.6f, 1);
+
+
     }
 }
