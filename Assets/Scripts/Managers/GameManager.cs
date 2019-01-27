@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerController player;
     public BlockCollisionManager blockCollision;
+        public HudScript hud;
 
     Transform currentPlayerSpawn;
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public void endGame()
     {
+        hud.gameEnd =true;
         player.GetPlayerState().setPlayerFrozen();
         Debug.Log("The game has now ended");
     }
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("player is dead");
-        Scene scene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(scene.name);
+       // Scene scene = SceneManager.GetActiveScene(); 
+        //SceneManager.LoadScene(scene.name);
     }
 }
