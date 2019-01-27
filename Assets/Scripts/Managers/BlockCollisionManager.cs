@@ -70,17 +70,13 @@ public class BlockCollisionManager : MonoBehaviour
         }
     }
 
-    public Block getBlockWithRoom(BlockRoom room)
+    public Block getBlockWithRoom(BlockRoom playerCurrentRoom)
     {
         foreach(Block b in blockList)
         {
             List<BlockRoom> rooms = b.GetRooms();
             
-            foreach(BlockRoom r in rooms)
-                Debug.Log("getrooms: " + r.name);
-            Debug.Log("Current block: " + b.name);
-            Debug.Log("current player room: " + room.name);
-            if(rooms.Contains(room));
+            if(rooms.Contains(playerCurrentRoom))
                 return b;
         }
         return null;
