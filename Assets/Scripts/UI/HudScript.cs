@@ -20,10 +20,10 @@ public class HudScript : MonoBehaviour
 
     public float healthTotal = 0;
     float fade = 700;
-    public bool gameEnd=false;
+    public bool gameEnd = false;
 
     public GameObject winUI;
-    float winAlpha=0;
+    float winAlpha = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -112,12 +112,17 @@ public class HudScript : MonoBehaviour
         if (gameEnd)
         {
 
-            if (winAlpha < 255 )
+            if (winAlpha < 255)
             {
                 winUI.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)winAlpha);
 
             }
-            winAlpha+=0.8f;
+            winAlpha += 0.8f;
+            if (winAlpha > 550){
+                print("quit");
+                Application.Quit();
+            }
+                
         }
     }
 }
