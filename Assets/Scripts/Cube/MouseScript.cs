@@ -16,6 +16,15 @@ public class MouseScript : MonoBehaviour
     float rotationNeeded;
     GameObject objectToRotate;
     SelectorScript selectorScript;
+    Vector3 vecToRotateTo;
+    //Rotation Vars
+    // Angular speed in radians per sec.
+    Vector3 startAngle;
+    float step;
+    float speed = 0.1f;
+    bool rotateTo = false;
+    float mouseVel;
+    float mouseVelTime;
     //mouseVars
     float lastMouseX = 0;
     float lastMouseY = 0;
@@ -52,6 +61,8 @@ public class MouseScript : MonoBehaviour
             {
                 totalMouseX += Input.mousePosition.x - lastMouseX;
                 totalMouseY += Input.mousePosition.y - lastMouseY;
+
+
                 if (Mathf.Abs(totalMouseX) > 20)/////////////////////HORIZONTAL ROTATION/////////////////////////////////
                 {
                     //gets all objects collided with the cube row
@@ -107,6 +118,7 @@ public class MouseScript : MonoBehaviour
                             {
                                 rotateDirection = -1f;
                             }
+
                         }
                         //Increase the number of Colliders in the array
                         i++;
@@ -116,27 +128,104 @@ public class MouseScript : MonoBehaviour
         }
         else
         {
-            if (rotationNeeded > 0)//rotates cubes over time
+
+            if (!rotateTo)
             {
-                float changeSpeed = 5;//NEEDS TO BE A MULTAPUL OF 90
-                //checks if rows or colums need to be rotated
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    //print(objectToRotate.transform.rotation.eulerAngles.x);
+
+                    rotateTo = true;
+                    step = 0;
+
+
+                    if (rotateVert)
+                    {
+                        mouseVel = Mathf.Clamp(Input.mousePosition.y - lastMouseY, -50f, 50f);
+                    }
+                    else
+                    {
+                        mouseVel = Mathf.Clamp(Input.mousePosition.x - lastMouseX, -40f, 40f);
+
+                    }
+                    mouseVelTime = 0.12f;
+                }
+
+                print(Input.mousePosition.y - lastMouseY);
                 if (rotateVert)
                 {
-                    objectToRotate.transform.Rotate(Vector3.right * changeSpeed * rotateDirection);
+                    objectToRotate.transform.Rotate(Vector3.right * (Mathf.Clamp(Input.mousePosition.y - lastMouseY, -50f, 50f) / 5.5f));
                 }
                 else
                 {
-                    objectToRotate.transform.Rotate(Vector3.up * changeSpeed * rotateDirection);
+                    objectToRotate.transform.Rotate(Vector3.up * -(Mathf.Clamp(Input.mousePosition.x - lastMouseX, -40f, 40f) / 5.5f));
+
                 }
-                rotationNeeded += -changeSpeed;
             }
             else
             {
-                //ends rotation and detaches children
-                rotating = false;
-                objectToRotate.transform.DetachChildren();
-            }
+                if (mouseVelTime > 0)
+                {
+                    if (rotateVert)
+                    {
+                        objectToRotate.transform.Rotate(Vector3.right * mouseVel / 5.5f);
+                    }
+                    else
+                    {
+                        objectToRotate.transform.Rotate(Vector3.up * -mouseVel / 5.5f);
 
+                    }
+                    mouseVelTime -= Time.deltaTime;
+                    startAngle = objectToRotate.transform.eulerAngles;
+                    vecToRotateTo = objectToRotate.transform.eulerAngles;
+                    vecToRotateTo.x = Mathf.Round(vecToRotateTo.x / 90) * 90;
+                    vecToRotateTo.y = Mathf.Round(vecToRotateTo.y / 90) * 90;
+                    vecToRotateTo.z = Mathf.Round(vecToRotateTo.z / 90) * 90;
+                }
+                else
+                {
+
+
+                    step += 0.1f;
+                    objectToRotate.transform.eulerAngles = new Vector3(
+                 Mathf.LerpAngle(startAngle.x, vecToRotateTo.x, step),
+                 Mathf.LerpAngle(startAngle.y, vecToRotateTo.y, step),
+                 Mathf.LerpAngle(startAngle.z, vecToRotateTo.z, step));
+                    if (step >= 1)
+                    {
+                        //ends rotation and detaches children
+                        rotating = false;
+                        rotateTo = false;
+                        objectToRotate.transform.DetachChildren();
+                    }
+
+                }
+            }
+            /*
+           if (rotationNeeded > 0)//rotates cubes over time
+           {
+
+
+               float changeSpeed = 5;//NEEDS TO BE A MULTAPUL OF 90
+               //checks if rows or colums need to be rotated
+               if (rotateVert)
+               {
+                   objectToRotate.transform.Rotate(Vector3.right * changeSpeed * rotateDirection);
+               }
+               else
+               {
+                   objectToRotate.transform.Rotate(Vector3.up * changeSpeed * rotateDirection);
+               }
+               rotationNeeded += -changeSpeed;
+           }
+           else
+           {
+               //ends rotation and detaches children
+               rotating = false;
+               objectToRotate.transform.DetachChildren();
+           }
+           */
 
         }
 
