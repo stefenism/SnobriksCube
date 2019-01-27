@@ -7,7 +7,8 @@ public class MouseScript : MonoBehaviour
     //raycast vars
     Ray ray;
     RaycastHit hit;
-
+    
+    List<GameObject> planesToRemove = new List<GameObject>();
 
     bool holdingSelector = false;
     bool rotating = false;
@@ -48,6 +49,20 @@ public class MouseScript : MonoBehaviour
                         holdingSelector = true;
                         totalMouseX = 0;
                         totalMouseY = 0;
+                        
+                    }
+                }
+                else
+                {
+                    if (hit.collider != null)
+                    {
+                        //Hilights rows
+                        ClearPlanes();
+                        selectorScript = hit.collider.gameObject.GetComponent<SelectorScript>();
+                        selectorScript.planeVert.GetComponent<Renderer>().enabled = true;
+                        selectorScript.planeHor.GetComponent<Renderer>().enabled = true;
+                        planesToRemove.Add(selectorScript.planeVert);
+                        planesToRemove.Add(selectorScript.planeHor);
                     }
                 }
             }
@@ -79,6 +94,7 @@ public class MouseScript : MonoBehaviour
                             rotateVert = false;
                             rotationNeeded = 90;
                             holdingSelector = false;
+                            ClearPlanes();
                             //gets the direction to rotate
                             if (totalMouseX > 0)
                             {
@@ -231,6 +247,17 @@ public class MouseScript : MonoBehaviour
         //gets mouse location to calculate change
         lastMouseX = Input.mousePosition.x;
         lastMouseY = Input.mousePosition.y;
+    }
+
+    void ClearPlanes()
+    {
+        int i = 0;
+        while (i < planesToRemove.Count)
+        {
+            planesToRemove[i].GetComponent<Renderer>().enabled = false;
+            i++;
+        }
+        planesToRemove.Clear();
     }
 
 
