@@ -50,6 +50,7 @@ public class PlayerStateManager : MonoBehaviour
             player.GetSound().playMelting();
         playerState = PlayerState.DEAD;
         GameManager.gameDaddy.endGame();
+        GameManager.gameDaddy.dead();
         
     }
 

@@ -35,9 +35,19 @@ public class GameManager : MonoBehaviour
         player.GetPlayerState().setPlayerFrozen();
         Debug.Log("The game has now ended");
     }
+    public void dead()
+    {
+        StartCoroutine("playerDead");
+    }
 
     public BlockRoom getPlayerRoom(){return player.GetPlayerState().getCurrentRoom();}
     public void setPlayerRoom(BlockRoom newRoom){player.GetPlayerState().setCurrentRoom(newRoom);}
 
     public void changePlayerHealth(float healthChange){player.GetPlayerHealth().addHealth(healthChange);}
+
+    IEnumerator playerDead()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("player is dead");
+    }
 }
