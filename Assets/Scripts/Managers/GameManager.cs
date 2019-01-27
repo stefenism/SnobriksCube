@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void endGame()
+    {
+        player.GetPlayerState().setPlayerFrozen();
+        Debug.Log("The game has now ended");
+    }
+
     public BlockRoom getPlayerRoom(){return player.GetPlayerState().getCurrentRoom();}
     public void setPlayerRoom(BlockRoom newRoom){player.GetPlayerState().setCurrentRoom(newRoom);}
 
