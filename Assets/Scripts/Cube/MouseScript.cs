@@ -37,7 +37,9 @@ public class MouseScript : MonoBehaviour
     float totalMouseX = 0;
     float totalMouseY = 0;
     public bool forceShuffle = true;
-
+    void Start(){
+        GameManager.gameDaddy.blockCollision.setBlockCollision();
+    }
 
     void Update()
     {
@@ -248,6 +250,7 @@ public class MouseScript : MonoBehaviour
                         rotating = false;
                         rotateTo = false;
                         objectToRotate.transform.DetachChildren();
+                        GameManager.gameDaddy.blockCollision.setBlockCollision();
                     }
 
                 }

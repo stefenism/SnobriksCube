@@ -37,6 +37,7 @@ public class HudScript : MonoBehaviour
         UpdateHealthBar();
         UpdateShift();
         UpdateEndscreen();
+
     }
 
     void LogoFade()
@@ -51,6 +52,7 @@ public class HudScript : MonoBehaviour
 
     void UpdateHealthBar()
     {
+        healthTotal=100-GameManager.gameDaddy.player.GetPlayerHealth().getCurrentHealth();
 
         healthBarUI.transform.localScale = new Vector3(1, 1 + healthTotal * 3.6f, 1);
 
