@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        Mathf.Clamp(currentHealth, 0, 100);
         if(currentHealth <= 0)
             player.GetPlayerState().setPlayerDead();
     }
