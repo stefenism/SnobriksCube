@@ -152,7 +152,6 @@ public class MouseScript : MonoBehaviour
                     mouseVelTime = 0.12f;
                 }
 
-                print(Input.mousePosition.y - lastMouseY);
                 if (rotateVert)
                 {
                     objectToRotate.transform.Rotate(Vector3.right * (Mathf.Clamp(Input.mousePosition.y - lastMouseY, -50f, 50f) / 5.5f));
