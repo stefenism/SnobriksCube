@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private PlayerStateManager playerState;
     private PlayerHealth playerHealth;
 
+    private PlayerSFX sound;
+
     public bool grounded;
     private bool facingRight = true;
 
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         playerState = GetComponent<PlayerStateManager>();
         playerHealth = GetComponent<PlayerHealth>();
+        sound = GetComponent<PlayerSFX>();
     }
 
     void Update()
@@ -187,6 +190,11 @@ public class PlayerController : MonoBehaviour
                 //queue jumpdust
         }
 
+        if(Input.GetButtonDown(ProjectConstants.JUMP_BUTTON) && jumpAllowed)
+        {
+            sound.playJump();
+        }
+
         if(jumpDuration >= jumpTime)
         {
             jumping = false;
@@ -246,6 +254,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerStateManager GetPlayerState(){return playerState;}
     public PlayerHealth GetPlayerHealth(){return playerHealth;}
+    public PlayerSFX GetSound(){return sound;}
 
     void Flip()
     {

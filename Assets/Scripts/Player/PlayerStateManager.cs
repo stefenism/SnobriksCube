@@ -15,9 +15,11 @@ public class PlayerStateManager : MonoBehaviour
     private BlockRoom currentRoom;
     private Vector2 spawnPosition;
 
+    private PlayerController player;
     void Awake()
     {
         spawnPosition = transform.position;
+        player = GetComponent<PlayerController>();
     } 
 
     public bool playerIsControllable(){return playerState == PlayerState.CONTROLLABLE;}
@@ -26,7 +28,13 @@ public class PlayerStateManager : MonoBehaviour
 
     public void setPlayerFrozen(){playerState = PlayerState.FROZEN;}
     public void setPlayerControllable(){playerState = PlayerState.CONTROLLABLE;}
-    public void setPlayerDead(){playerState = PlayerState.DEAD;}
+    public void setPlayerDead()
+    {
+        if(!playerIsDead())
+            player.GetSound().playMelting();
+        playerState = PlayerState.DEAD;
+        
+    }
 
     public void setCurrentRoom(BlockRoom newRoom){currentRoom = newRoom;}
     public BlockRoom getCurrentRoom(){return currentRoom;}

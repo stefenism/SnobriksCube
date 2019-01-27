@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Player\GroundDetect.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerSFX.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerStateManager.cs" />
      <Compile Include="Assets\Scripts\UI\HudScript.cs" />
      <Compile Include="Assets\Scripts\Utilities\ProjectConstants.cs" />
