@@ -16,11 +16,20 @@ public class PlayerStateManager : MonoBehaviour
     private Vector2 spawnPosition;
 
     private PlayerController player;
+
+    private List<KeyController> keysCollected = new List<KeyController>();
     void Awake()
     {
         spawnPosition = transform.position;
         player = GetComponent<PlayerController>();
     } 
+
+
+    public void collectKey(KeyController newKey)
+    {
+        if(!keysCollected.Contains(newKey))
+            keysCollected.Add(newKey);
+    }
 
     public bool playerIsControllable(){return playerState == PlayerState.CONTROLLABLE;}
     public bool playerIsFrozen(){return playerState == PlayerState.FROZEN;}
