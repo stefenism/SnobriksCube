@@ -84,7 +84,7 @@ public class CameraController : MonoBehaviour
         {
             screenAddX = (Input.mousePosition.x / Screen.width) / 2 + .75f;
             screenAddY = (Input.mousePosition.y / Screen.height) / 2 + .75f;
-            print(screenAddX);
+
 
             //transform.eulerAngles = new Vector3(-(screenAddY-1)*5,screenAddX*5,0);
             float posX = Mathf.SmoothDamp(transform.position.x, 1.5f * screenAddX + rotShiftX, ref velocity.x, smoothZoomTimeX);

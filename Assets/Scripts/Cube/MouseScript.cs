@@ -7,7 +7,12 @@ public class MouseScript : MonoBehaviour
     //raycast vars
     Ray ray;
     RaycastHit hit;
-    
+    public Material GoodMat;
+    public Material BadMat;
+    bool lockHor = false;
+    bool lockVert = false;
+
+    public CameraController cameraController;
     List<GameObject> planesToRemove = new List<GameObject>();
 
     bool holdingSelector = false;
@@ -35,109 +40,128 @@ public class MouseScript : MonoBehaviour
     {
         if (!rotating)//dont allow clicks if rotating
         {
-            //raycast for clicks
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            if (cameraController.zoomOut)
             {
-                if (Input.GetMouseButtonDown(0))
+                //raycast for clicks
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
                 {
-                    //checks if it hit a selector
-                    if (hit.collider.tag == "Selector")
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        //starts the recording of mouse inputs so we can see what direction is rotated
-                        selectorScript = hit.collider.gameObject.GetComponent<SelectorScript>();
-                        holdingSelector = true;
-                        totalMouseX = 0;
-                        totalMouseY = 0;
-                        
+                        //checks if it hit a selector
+                        if (hit.collider.tag == "Selector")
+                        {
+                            //starts the recording of mouse inputs so we can see what direction is rotated
+                            selectorScript = hit.collider.gameObject.GetComponent<SelectorScript>();
+                            holdingSelector = true;
+                            totalMouseX = 0;
+                            totalMouseY = 0;
+
+                        }
+                    }
+                    else
+                    {
+                        if (hit.collider.tag == "Selector")
+                        {
+                            //Hilights rows
+                            ClearPlanes();
+                            selectorScript = hit.collider.gameObject.GetComponent<SelectorScript>();
+                            selectorScript.planeVert.GetComponent<Renderer>().enabled = true;
+                            selectorScript.planeHor.GetComponent<Renderer>().enabled = true;
+                            planesToRemove.Add(selectorScript.planeVert);
+                            planesToRemove.Add(selectorScript.planeHor);
+
+                            lockHor = SetMats(Physics.OverlapBox(selectorScript.cubeSideHor.transform.position, selectorScript.cubeSideHor.transform.localScale / 2, Quaternion.identity), selectorScript.planeHor);
+
+                            lockVert = SetMats(Physics.OverlapBox(selectorScript.cubeSideVert.transform.position, selectorScript.cubeSideVert.transform.localScale / 2, Quaternion.identity), selectorScript.planeVert);
+
+
+
+                        }
+                        else
+                        {
+                            ClearPlanes();
+                        }
                     }
                 }
                 else
                 {
-                    if (hit.collider != null)
-                    {
-                        //Hilights rows
-                        ClearPlanes();
-                        selectorScript = hit.collider.gameObject.GetComponent<SelectorScript>();
-                        selectorScript.planeVert.GetComponent<Renderer>().enabled = true;
-                        selectorScript.planeHor.GetComponent<Renderer>().enabled = true;
-                        planesToRemove.Add(selectorScript.planeVert);
-                        planesToRemove.Add(selectorScript.planeHor);
-                    }
+                    ClearPlanes();
                 }
-            }
-            //cancels recording of mouse if mouse is released
-            if (Input.GetMouseButtonUp(0))
-            {
-                holdingSelector = false;
-
-            }
-            if (holdingSelector)//records mouse inputs and checks if it has moved far enough
-            {
-                totalMouseX += Input.mousePosition.x - lastMouseX;
-                totalMouseY += Input.mousePosition.y - lastMouseY;
-
-
-                if (Mathf.Abs(totalMouseX) > 20)/////////////////////HORIZONTAL ROTATION/////////////////////////////////
+                //cancels recording of mouse if mouse is released
+                if (Input.GetMouseButtonUp(0))
                 {
-                    //gets all objects collided with the cube row
-                    Collider[] hitColliders = Physics.OverlapBox(selectorScript.cubeSideHor.transform.position, selectorScript.cubeSideHor.transform.localScale / 2, Quaternion.identity);
-                    int i = 0;
-                    while (i < hitColliders.Length)
-                    {
-                        if (hitColliders[i].tag == "RuCube")//checks if its a cube 
-                        {
-                            hitColliders[i].gameObject.transform.SetParent(selectorScript.cubeSideHor.transform);//parents the cube to the row
-                            //sets the cubes to rotate
-                            objectToRotate = selectorScript.cubeSideHor;
-                            rotating = true;
-                            rotateVert = false;
-                            rotationNeeded = 90;
-                            holdingSelector = false;
-                            ClearPlanes();
-                            //gets the direction to rotate
-                            if (totalMouseX > 0)
-                            {
-                                rotateDirection = -1f;
-                            }
-                            else
-                            {
-                                rotateDirection = 1f;
-                            }
-                        }
-                        //Increase the number of Colliders in the array
-                        i++;
-                    }
+                    holdingSelector = false;
+
                 }
-                if (Mathf.Abs(totalMouseY) > 20)/////////////////////VERTICLE ROTATION/////////////////////////////////
+                if (holdingSelector)//records mouse inputs and checks if it has moved far enough
                 {
-                    //gets all objects collided with the cube row
-                    Collider[] hitColliders = Physics.OverlapBox(selectorScript.cubeSideVert.transform.position, selectorScript.cubeSideVert.transform.localScale / 2, Quaternion.identity);
-                    int i = 0;
-                    while (i < hitColliders.Length)
-                    {
-                        if (hitColliders[i].tag == "RuCube")//checks if its a cube 
-                        {
-                            hitColliders[i].gameObject.transform.SetParent(selectorScript.cubeSideVert.transform);//parents the cube to the row
-                            //sets the cubes to rotate
-                            objectToRotate = selectorScript.cubeSideVert;
-                            rotating = true;
-                            rotateVert = true;
-                            rotationNeeded = 90;
-                            holdingSelector = false;
-                            //gets the direction to rotate
-                            if (totalMouseY > 0)
-                            {
-                                rotateDirection = 1f;
-                            }
-                            else
-                            {
-                                rotateDirection = -1f;
-                            }
+                    totalMouseX += Input.mousePosition.x - lastMouseX;
+                    totalMouseY += Input.mousePosition.y - lastMouseY;
 
+
+                    if (Mathf.Abs(totalMouseX) > 20 && !lockHor)/////////////////////HORIZONTAL ROTATION/////////////////////////////////
+                    {
+                        //gets all objects collided with the cube row
+                        Collider[] hitColliders = Physics.OverlapBox(selectorScript.cubeSideHor.transform.position, selectorScript.cubeSideHor.transform.localScale / 2, Quaternion.identity);
+                        int i = 0;
+                        while (i < hitColliders.Length)
+                        {
+                            if (hitColliders[i].tag == "RuCube")//checks if its a cube 
+                            {
+                                hitColliders[i].gameObject.transform.SetParent(selectorScript.cubeSideHor.transform);//parents the cube to the row
+                                                                                                                     //sets the cubes to rotate
+                                objectToRotate = selectorScript.cubeSideHor;
+                                rotating = true;
+                                rotateVert = false;
+                                rotationNeeded = 90;
+                                holdingSelector = false;
+                                ClearPlanes();
+                                //gets the direction to rotate
+                                if (totalMouseX > 0)
+                                {
+                                    rotateDirection = -1f;
+                                }
+                                else
+                                {
+                                    rotateDirection = 1f;
+                                }
+                            }
+                            //Increase the number of Colliders in the array
+                            i++;
                         }
-                        //Increase the number of Colliders in the array
-                        i++;
+                    }
+                    if (Mathf.Abs(totalMouseY) > 20 && !lockVert)/////////////////////VERTICLE ROTATION/////////////////////////////////
+                    {
+                        //gets all objects collided with the cube row
+                        Collider[] hitColliders = Physics.OverlapBox(selectorScript.cubeSideVert.transform.position, selectorScript.cubeSideVert.transform.localScale / 2, Quaternion.identity);
+                        int i = 0;
+                        while (i < hitColliders.Length)
+                        {
+                            if (hitColliders[i].tag == "RuCube")//checks if its a cube 
+                            {
+                                hitColliders[i].gameObject.transform.SetParent(selectorScript.cubeSideVert.transform);//parents the cube to the row
+                                                                                                                      //sets the cubes to rotate
+                                objectToRotate = selectorScript.cubeSideVert;
+                                rotating = true;
+                                rotateVert = true;
+                                rotationNeeded = 90;
+                                holdingSelector = false;
+                                ClearPlanes();
+                                //gets the direction to rotate
+                                if (totalMouseY > 0)
+                                {
+                                    rotateDirection = 1f;
+                                }
+                                else
+                                {
+                                    rotateDirection = -1f;
+                                }
+
+                            }
+                            //Increase the number of Colliders in the array
+                            i++;
+                        }
                     }
                 }
             }
@@ -258,6 +282,27 @@ public class MouseScript : MonoBehaviour
             i++;
         }
         planesToRemove.Clear();
+    }
+    bool SetMats(Collider[] hitColliders, GameObject plane)
+    {
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject == GameManager.gameDaddy.player.GetPlayerState().getCurrentBlock().gameObject)//checks if its a cube 
+            {
+
+                plane.GetComponent<Renderer>().material = BadMat;
+                return true;
+            }
+            else
+            {
+
+                plane.GetComponent<Renderer>().material = GoodMat;
+            }
+
+            i++;
+        }
+        return false;
     }
 
 
