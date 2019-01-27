@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/StefenTest.unity
+- path: Assets/Scenes/StefenCube.unity
   isLoaded: 1
   isActive: 1

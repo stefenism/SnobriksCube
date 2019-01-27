@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Cube\BlockRoom.cs" />
      <Compile Include="Assets\Scripts\Cube\CubeScript.cs" />
      <Compile Include="Assets\Scripts\Cube\MouseScript.cs" />
+     <Compile Include="Assets\Scripts\Cube\SelectorScript.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\GroundDetect.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />

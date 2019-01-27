@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum BlockType
     {
-        
+        ONE,
+        TWO,
+        THREE,
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public BlockType blockType = BlockType.ONE;
+
+    private List<BlockRoom> rooms = new List<BlockRoom>();
 }

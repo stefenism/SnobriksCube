@@ -23,6 +23,8 @@ public class BlockRoom : MonoBehaviour
     public float timeToModifyHealth = 0;
     private float currentTime = 0;
 
+    public Sprite backGroundImage;
+
     public void Update()
     {
         affect_player_health();
