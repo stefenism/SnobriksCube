@@ -23,7 +23,7 @@ public class KeyController : MonoBehaviour
     {
         GameManager.gameDaddy.player.GetSound().playKeySound();
         Debug.Log("made it");
-        //door.open();
+        door.open();
         GameManager.gameDaddy.player.GetPlayerState().collectKey(this);
         //makeKeyAppearInUI
         gameObject.SetActive(false);
