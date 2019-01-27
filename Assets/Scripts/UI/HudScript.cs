@@ -13,13 +13,17 @@ public class HudScript : MonoBehaviour
     public Sprite testSprite;
     int keyCount = 0;
 
-    bool shiftVisable=true;
+    bool shiftVisable = false;
     float shiftAlpha = 0;
     public GameObject shiftUI;
     public CameraController camera;
 
     public float healthTotal = 0;
     float fade = 700;
+    public bool gameEnd=false;
+
+    public GameObject winUI;
+    float winAlpha=0;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class HudScript : MonoBehaviour
         LogoFade();
         UpdateHealthBar();
         UpdateShift();
+        UpdateEndscreen();
     }
 
     void LogoFade()
@@ -80,7 +85,7 @@ public class HudScript : MonoBehaviour
 
     void UpdateShift()
     {
-        print(shiftAlpha);
+
         if (shiftAlpha < 255 & shiftAlpha >= 0)
         {
             shiftUI.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)shiftAlpha);
@@ -88,14 +93,31 @@ public class HudScript : MonoBehaviour
         }
         if (shiftVisable)
         {
-            if(shiftAlpha<255)
-            shiftAlpha = shiftAlpha + 1.5f;
-        }else{
-            if(shiftAlpha>0)
-            shiftAlpha = shiftAlpha - 1.5f;
+            if (shiftAlpha < 255)
+                shiftAlpha = shiftAlpha + 1.5f;
         }
-        if(camera.zoomOut)
-            shiftVisable=false;
+        else
+        {
+            if (shiftAlpha > 0)
+                shiftAlpha = shiftAlpha - 1.5f;
+        }
+        if (camera.zoomOut)
+        {
+            shiftVisable = false;
+        }
 
+    }
+    void UpdateEndscreen()
+    {
+        if (gameEnd)
+        {
+
+            if (winAlpha < 255 )
+            {
+                winUI.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)winAlpha);
+
+            }
+            winAlpha+=0.8f;
+        }
     }
 }
