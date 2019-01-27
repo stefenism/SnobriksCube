@@ -23,4 +23,6 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void addHealth(float addToHealth){currentHealth += addToHealth;}
+
+    public float getCurrentHealth(){return currentHealth;}
 }
