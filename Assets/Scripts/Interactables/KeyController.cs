@@ -21,7 +21,7 @@ public class KeyController : MonoBehaviour
 
     void do_collect_key()
     {
-        GameManager.gameDaddy.player.GetSound().playKeysound();
+        GameManager.gameDaddy.player.GetSound().playKeySound();
         Debug.Log("made it");
         //door.open();
         GameManager.gameDaddy.player.GetPlayerState().collectKey(this);
