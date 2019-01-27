@@ -30,6 +30,12 @@ public class CameraController : MonoBehaviour
     {
 
         zoomOut = Input.GetKey(KeyCode.LeftShift);
+        if (Input.GetKeyDown(KeyCode.LeftShift)){
+            GameManager.gameDaddy.player.GetPlayerState().setPlayerFrozen();
+        }
+            else   if( Input.GetKeyUp(KeyCode.LeftShift)){
+            GameManager.gameDaddy.player.GetPlayerState().setPlayerControllable();
+        }
         if (Input.GetKey(KeyCode.D))
         {
             rotAddX = 0;
