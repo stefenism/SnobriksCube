@@ -44,12 +44,17 @@ public class BlockCollisionManager : MonoBehaviour
 
     public void setBlockCollision()
     {
+        Debug.Log("block collision is being set");
         List<Block> blocks = frontFaced.findFrontFaceBlocks();
+
         foreach(Block b in blockList)
-        {
+        {            
             List<BlockRoom> rooms = b.GetRooms();
             if(blocks.Contains(b))
             {
+                if(b == GameManager.gameDaddy.iglooBlock)
+                    GameManager.gameDaddy.setIglooHouseCollisionLayer(defaultCollisionLayerName);
+
                 foreach(BlockRoom r in rooms)
                 {
                     r.gameObject.layer = LayerMask.NameToLayer(defaultCollisionLayerName); 
@@ -59,7 +64,10 @@ public class BlockCollisionManager : MonoBehaviour
                 
                 // LayerMask.NameToLayer(playerCollisionLayer.getMask());
             else
-            {
+            {         
+                if(b == GameManager.gameDaddy.iglooBlock)
+                    GameManager.gameDaddy.setIglooHouseCollisionLayer(backGroundCollisionLayerName);
+                           
                 foreach(BlockRoom r in rooms)
                 {
                     r.gameObject.layer = LayerMask.NameToLayer(backGroundCollisionLayerName); 

@@ -19,7 +19,7 @@ public class FrontFacedBlocks : MonoBehaviour
     }
     public List<Block> findFrontFaceBlocks()
     {
-        
+        frontFacingBlocks.Clear();
         Collider[] hitColliders = Physics.OverlapBox(transform.position, extents);
         foreach(Collider c in hitColliders)
         {
@@ -29,7 +29,7 @@ public class FrontFacedBlocks : MonoBehaviour
         }
         
         //foreach(Block b in frontFacingBlocks)
-        //    Debug.Log("b name: " + b.name);    
+        //    Debug.Log("b name: " + b.name);            
         return frontFacingBlocks;
     }
 }

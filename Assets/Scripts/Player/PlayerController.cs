@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private float jumpDuration = 0;
     public float jumpTime = .3f;
+    private bool jumpPartTwo = false;
+    private int jumps = 0;
     [Range(0.1f, 1f)]
     public float drag = 1;
     public float gravityDropModifier = 2;
@@ -68,16 +70,17 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!grounded && jumping && !jumpPartTwo)
+            jumpDuration += Time.fixedDeltaTime;
+
         Run(horMov);
 
         if(jumping)
             Jump();
-
-        if(!grounded && jumping)
-            jumpDuration += Time.fixedDeltaTime;
+        
     
 
-        if(grounded)
+        if(grounded)// || jumpPartTwo)
             jumpDuration = 0;
     }
 
@@ -92,9 +95,12 @@ public class PlayerController : MonoBehaviour
             jumping = false;
             canJump = true;
             DetermineJumpButton();
+            jumpPartTwo = false;
+            jumps = 0;
         }
 
          JumpButton();
+         QuickFallButton();
 
         if(rb.velocity.x > 0 && !facingRight)
             Flip();
@@ -167,6 +173,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!Input.GetButton(ProjectConstants.JUMP_BUTTON))
         {
+
             if(rb.velocity.y >= 0)
             {
                 Vector2 dragForce = rb.velocity;
@@ -176,9 +183,13 @@ public class PlayerController : MonoBehaviour
 
                 if(!grounded)
                 {
-                    jumpDuration = jumpTime;
+                    jumpDuration = jumpTime;                    
                 }
             }
+
+            if(!grounded)
+                resetJump();            
+            
         }
 
         if(Input.GetButton(ProjectConstants.JUMP_BUTTON) && jumpAllowed)
@@ -186,16 +197,25 @@ public class PlayerController : MonoBehaviour
             jumping = true;
             canJump = false;
 
+            if(jumpPartTwo)
+            {
+                jumpAllowed = true;
+                canJump = true;
+                jumpDuration = 0;
+            }
+
+            jumpPartTwo = false;
             //if(grounded)
                 //queue jumpdust
         }
 
         if(Input.GetButtonDown(ProjectConstants.JUMP_BUTTON) && jumpAllowed)
         {
+            jumps++;
             sound.playJump();
         }
 
-        if(jumpDuration >= jumpTime)
+        if(jumpDuration >= jumpTime && !jumpPartTwo && jumps < 2)
         {
             jumping = false;
             jumpAllowed = false;
@@ -203,6 +223,20 @@ public class PlayerController : MonoBehaviour
             if(rb.velocity.y < 0)
                 setGravityScale(gravityDropModifier);
         }
+    }
+
+    void resetJump()
+    {
+        if(jumpPartTwo || jumps >= 2)
+            return;
+
+        jumpPartTwo = true;      
+        jumpDuration = 0;              
+        /*
+        jumpAllowed = true;
+        canJump = true;
+        jumpDuration = 0;
+        */
     }
 
     void QuickFallButton()
@@ -228,7 +262,7 @@ public class PlayerController : MonoBehaviour
 
     void DetermineJumpButton()
     {
-        if(grounded && !Input.GetButton(ProjectConstants.JUMP_BUTTON))
+        if((grounded && !Input.GetButton(ProjectConstants.JUMP_BUTTON)))
         {
             jumpAllowed = true;
         }
@@ -251,6 +285,18 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D GetRigidbody(){return rb;}
 
     public void setGravityScale(float newScale){rb.gravityScale = newScale;}
+
+    public void setRbKinematic()
+    {
+        rb.isKinematic = true;
+        rb.simulated = false;
+
+    }
+    public void setRbDynamic()
+    {
+        rb.isKinematic = false;
+        rb.simulated = true;
+    }
 
     public PlayerStateManager GetPlayerState(){return playerState;}
     public PlayerHealth GetPlayerHealth(){return playerHealth;}

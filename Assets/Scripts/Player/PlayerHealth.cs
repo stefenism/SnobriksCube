@@ -25,8 +25,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void addHealth(float addToHealth)
     {
-        currentHealth += addToHealth;
-        Mathf.Clamp(currentHealth, 0, 100);    
+        currentHealth = Mathf.Clamp(currentHealth + addToHealth, 0, 100);
+        //currentHealth += addToHealth;
+        //Mathf.Clamp(currentHealth, 0, 100);    
     }
 
     public float getCurrentHealth(){return currentHealth;}

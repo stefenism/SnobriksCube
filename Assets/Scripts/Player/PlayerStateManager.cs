@@ -42,10 +42,20 @@ public class PlayerStateManager : MonoBehaviour
     public bool playerIsFrozen(){return playerState == PlayerState.FROZEN;}
     public bool playerIsDead(){return playerState == PlayerState.DEAD;}
 
-    public void setPlayerFrozen(){playerState = PlayerState.FROZEN;}
-    public void setPlayerControllable(){playerState = PlayerState.CONTROLLABLE;}
+    public void setPlayerFrozen()
+    {
+        playerState = PlayerState.FROZEN;
+        player.setRbKinematic();
+    }
+    public void setPlayerControllable()
+    {
+        playerState = PlayerState.CONTROLLABLE;
+        player.setRbDynamic();
+    }
     public void setPlayerDead()
     {
+        if(playerIsDead())
+            return;
         if(!playerIsDead())
             player.GetSound().playMelting();
         playerState = PlayerState.DEAD;

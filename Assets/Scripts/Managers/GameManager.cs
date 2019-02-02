@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
 
     public PlayerController player;
     public BlockCollisionManager blockCollision;
-        public HudScript hud;
+    public HudScript hud;
+
+    public Block iglooBlock;
+    public IglooHouse igloo;
 
     Transform currentPlayerSpawn;
 
@@ -35,19 +38,24 @@ public class GameManager : MonoBehaviour
     public void endGame()
     {
         hud.gameEnd =true;
-        player.GetPlayerState().setPlayerFrozen();
+        player.GetPlayerState().setPlayerDead();
         Debug.Log("The game has now ended");
     }
     public void dead()
     {
-        player.GetPlayerState().setPlayerFrozen();
-        StartCoroutine("playerDead");
+        player.GetPlayerState().setPlayerDead();
+        //StartCoroutine("playerDead");
     }
 
     public BlockRoom getPlayerRoom(){return player.GetPlayerState().getCurrentRoom();}
     public void setPlayerRoom(BlockRoom newRoom){player.GetPlayerState().setCurrentRoom(newRoom);}
 
     public void changePlayerHealth(float healthChange){player.GetPlayerHealth().addHealth(healthChange);}
+
+    public void setIglooHouseCollisionLayer(string physicsLayer)
+    {
+        igloo.setIglooCollisionLayer(physicsLayer);
+    }
 
     IEnumerator playerDead()
     {
