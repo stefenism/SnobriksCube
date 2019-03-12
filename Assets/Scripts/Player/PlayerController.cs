@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
 
     void resetJump()
     {
-        if(jumpPartTwo || jumps >= 2)
+        if(jumpPartTwo || jumps >= 1)
             return;
 
         jumpPartTwo = true;      
